@@ -22,7 +22,12 @@
             echo "Cleared!";
         }
         
+        if(!isset($record["productID"]))
+        {
+            $record["productID"] = 1;
+        }
         
+        $_SESSION["productID"] += $record["productID"];
         
         if(!isset($_SESSION["numbers"]) && isset($_POST["Submit"]))
         {
@@ -32,14 +37,15 @@
         
         
         //check if value is set and push into array
-        if(isset($_POST["holdThese"]) && isset($_SESSION["numbers"]))
+        if(isset($_POST["productID"]) && isset($_SESSION["numbers"]))
         {
-            array_push($_SESSION["numbers"], $_POST["holdThese"]);
+            array_push($_SESSION["numbers"] = $_POST["productID"];
+            array_push($_SESSION["numbers"], $_SESSION["productID"]);
         }
         
         //if clear history was pushed, destroy session and get rid of all
         //values in lettersFound
-        if(isset($_GET["clear"]))
+        if(isset($_POST["clear"]))
         {
             session_destroy();
             unset($_SESSION["lettersFound"]);
@@ -88,6 +94,8 @@
             echo "</div>";
         }
         
+        
+        
         function printSessionArray($items)
         {
             if(isset($items))
@@ -106,6 +114,8 @@
         
         printSessionArray($_SESSION["numbers"]);
         
+        $record["productID"]++;
+        
         ?>
 
     <form action = "index.php" method = "post">
@@ -119,6 +129,11 @@
         <input type = "submit" name = "Submit">
         <input type = "submit" value = "clear" name = "Clear">
     </form>
+
+    <form action = "index.php" method = "post">
+            <input type='hidden' name='productID' value=<?php $record["productID"] ?>/>
+            <input type = "submit" name = "Submit">
+        </form>
 
     </body>
 </html>
