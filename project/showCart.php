@@ -11,9 +11,7 @@
         if(!isset($_SESSION))
         {
             session_start();
-            $_SESSION["numbers"] = array();
         }
-        
         
         //if clear history was pushed, destroy session and get rid of all
         //values in lettersFound
@@ -64,8 +62,23 @@
             echo "</table>";
         }
         
+        function printSessionArray($items)
+        {
+            if(isset($items))
+            {
+                foreach($items as $item)
+                {
+                    echo $item . ", ";
+                }
+            }
+            else {
+                echo "\n\nIt's not set.\n\n";
+            }
+        }
+        
         createTable($testing);
         
+        printSessionArray($_SESSION["numbers"]);
         ?>
 
     <form action = "showCart.php" method = "post">

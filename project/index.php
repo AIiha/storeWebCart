@@ -8,6 +8,7 @@
         
         <?php
         
+        // session_start();
          //check if session is started
         if(!isset($_SESSION))
         {
@@ -118,6 +119,10 @@
         </select>
         <input type = "submit" name = "Submit">
         <input type = "submit" value = "clear" name = "Clear">
+    </form>
+    
+    <form action = "showCart.php" method = "post">
+        <input type = "submit" name = "goToCart">
     </form>
 
     </body>
