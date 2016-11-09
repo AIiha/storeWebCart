@@ -3,6 +3,7 @@
     <head>
         <title> </title>
     </head>
+    <link rel = "stylesheet" type = "text/css" href = "css/style.css">
     <body>
         
         <?php
@@ -59,6 +60,7 @@
         
         function createTable($items)
         {
+            echo "<div class = table>";
             echo "<table>";
             echo "<tr>";//column name row
             echo "<td>";
@@ -83,6 +85,7 @@
                 echo "</tr>";
             }
             echo "</table>";
+            echo "</div>";
         }
         
         function printSessionArray($items)

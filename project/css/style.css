@@ -1,0 +1,8 @@
+body, html{
+    width:100%;
+    height:100%;
+}
+.table{
+    margin: 0 auto;
+    padding: 5vw 25vw 0 25vw;
+}
