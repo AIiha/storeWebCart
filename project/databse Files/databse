@@ -1,0 +1,121 @@
+-- phpMyAdmin SQL Dump
+-- version 4.0.10deb1
+-- http://www.phpmyadmin.net
+--
+-- Vert: 127.0.0.1
+-- Generert den: 09. Nov, 2016 21:36 PM
+-- Tjenerversjon: 5.5.53-0ubuntu0.14.04.1
+-- PHP-Versjon: 5.5.9-1ubuntu4.20
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
+--
+-- Database: `webStore`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur for tabell `brand`
+--
+
+CREATE TABLE IF NOT EXISTS `brand` (
+  `brandID` int(11) NOT NULL,
+  `brandName` varchar(100) NOT NULL,
+  PRIMARY KEY (`brandID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dataark for tabell `brand`
+--
+
+INSERT INTO `brand` (`brandID`, `brandName`) VALUES
+(1, 'Pepper Bridge farm'),
+(2, 'Coca Cola Company'),
+(3, 'Kraft'),
+(4, 'The Fruit Company'),
+(5, 'The Candy Company');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur for tabell `category`
+--
+
+CREATE TABLE IF NOT EXISTS `category` (
+  `categoryID` int(11) NOT NULL,
+  `categoryName` varchar(100) NOT NULL,
+  PRIMARY KEY (`categoryID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dataark for tabell `category`
+--
+
+INSERT INTO `category` (`categoryID`, `categoryName`) VALUES
+(1, 'beverage'),
+(2, 'Candy'),
+(3, 'Fruit'),
+(4, 'Dinner Food');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur for tabell `Product`
+--
+
+CREATE TABLE IF NOT EXISTS `Product` (
+  `productID` int(11) NOT NULL,
+  `name` varchar(40) NOT NULL,
+  `brandID` int(11) NOT NULL,
+  `categoryID` int(11) NOT NULL,
+  `Description` varchar(250) NOT NULL,
+  `Price` varchar(40) NOT NULL,
+  PRIMARY KEY (`productID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dataark for tabell `Product`
+--
+
+INSERT INTO `Product` (`productID`, `name`, `brandID`, `categoryID`, `Description`, `Price`) VALUES
+(1, 'Coca COla', 2, 1, 'Cold sugar beverage', '1'),
+(2, 'Snickers bar', 5, 2, 'choclate peanut bar', '2'),
+(3, 'mac and cheese', 3, 4, 'Mac and cheese americas favurite mac and cheese', '1'),
+(4, 'chocolate cookie', 1, 2, 'cookie with chocolate', '1'),
+(5, 'chocolate cookie 6 pack', 1, 2, 'cookie with chocolate', '5');
+
+-- --------------------------------------------------------
+
+--
+-- Tabellstruktur for tabell `stock`
+--
+
+CREATE TABLE IF NOT EXISTS `stock` (
+  `productId` int(11) NOT NULL,
+  `currentStock` int(11) NOT NULL,
+  `maxStock` int(11) NOT NULL,
+  PRIMARY KEY (`productId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dataark for tabell `stock`
+--
+
+INSERT INTO `stock` (`productId`, `currentStock`, `maxStock`) VALUES
+(1, 5, 20),
+(2, 3, 5),
+(3, 10, 40),
+(4, 2, 40),
+(5, 2, 40);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
