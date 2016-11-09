@@ -13,7 +13,6 @@
             session_start();
         }
         
-        
         //if clear history was pushed, destroy session and get rid of all
         //values in lettersFound
         if(isset($_GET["clear"]))
@@ -80,7 +79,10 @@
         createTable($testing);
         
         printSessionArray($_SESSION["numbers"]);
+<<<<<<< HEAD
         
+=======
+>>>>>>> Lorenzo
         ?>
 
     <form action = "showCart.php" method = "post">
