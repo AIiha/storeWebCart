@@ -5,7 +5,7 @@
     function getDatabaseConnection(){
         $dbHost = getenv('IP');
         $dbPort = 3306;
-        $dbName = "users";
+        $dbName = "webStore";
         $username = getenv('C9_USER');
         $password = "";
         
