@@ -10,7 +10,6 @@
         
         include 'database.php';
         $conn = getDatabaseConnection();
-        
          //check if session is started
         if(!isset($_SESSION))
         {
@@ -42,7 +41,7 @@
         //check if value is set and push into array
         if(isset($_POST["productID"]) && isset($_SESSION["numbers"]))
         {
-            array_push($_SESSION["numbers"] = $_POST["productID"];
+            $_SESSION["numbers"] = $_POST["productID"];
             array_push($_SESSION["numbers"], $_SESSION["productID"]);
         }
         
