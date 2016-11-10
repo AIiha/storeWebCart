@@ -8,7 +8,8 @@
         
         <?php
         
-        // session_start();
+        include 'database.php';
+        $conn = getDatabaseConnection();
          //check if session is started
         if(!isset($_SESSION))
         {
