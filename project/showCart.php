@@ -79,10 +79,6 @@
         createTable($testing);
         
         printSessionArray($_SESSION["numbers"]);
-<<<<<<< HEAD
-        
-=======
->>>>>>> Lorenzo
         ?>
 
     <form action = "showCart.php" method = "post">
