@@ -8,6 +8,7 @@
         
         <?php
         
+        
         include 'database.php';
         $conn = getDatabaseConnection();
          //check if session is started
@@ -16,130 +17,217 @@
             session_start();
         }
         
-        if(isset($_POST["Clear"]))
-        {
-            unset($_SESSION["numbers"]);
-            unset($_SESSION);
-            session_destroy();
-            echo "Cleared!";
-        }
         
-        if(!isset($record["productID"]))
-        {
-            $record["productID"] = 1;
-        }
-        
-        $_SESSION["productID"] += $record["productID"];
-        
-        if(!isset($_SESSION["numbers"]) && isset($_POST["Submit"]))
+        if(!isset($_SESSION["numbers"]))
         {
             $_SESSION["numbers"] = array();
+        }
+        
+        if(!isset($_SESSION['selection']))
+        {
+            $_SESSION['selection'] = [0,0,0,0];
         }
         
         
         
         //check if value is set and push into array
-        if(isset($_POST["productID"]) && isset($_SESSION["numbers"]))
+        if(isset($_POST["productID"]))
         {
-            $_SESSION["numbers"] = $_POST["productID"];
-            array_push($_SESSION["numbers"], $_SESSION["productID"]);
+            array_push($_SESSION["numbers"], $_POST["productID"]);
         }
         
-        //if clear history was pushed, destroy session and get rid of all
-        //values in lettersFound
-        if(isset($_POST["clear"]))
+        
+        if(isset($_POST["Clear"]))
         {
+            unset($_SESSION["numbers"]);
+            unset($_SESSION['selection']);
+            unset($_SESSION);
             session_destroy();
-            unset($_SESSION["lettersFound"]);
+            echo "Cleared!";
         }
-        
-        $testing = array(
-            array(
-                "first"=>1,
-                "second" =>2,
-                "third" =>3,
-                ),
-            array(
-                "first"=>4,
-                "second" =>5,
-                "third" =>6,
-                )
-            );
-        
-        function createTable($items)
+        if( isset($_POST['name']))
         {
-            echo "<div class = table>";
-            echo "<table>";
-            echo "<tr>";//column name row
-            echo "<td>";
-            echo "First";//column name
-            echo "</td>";
-            echo "<td>";
-            echo "Second";//column name
-            echo "</td>";
-            echo "<td>";
-            echo "Third";//column name
-            echo "</td>";
-            echo "</tr>";
-            foreach($items as $item)
+            for($i = 0; $i < 4; $i++)
             {
-                echo "<tr>";
-                foreach($item as $k)
+                if($i == 0)
                 {
-                    echo "<td>";
-                    echo $k;
-                    echo "</td>";
+                    $_SESSION["selection"][$i] = $_POST['name'];
                 }
-                echo "</tr>";
+                else 
+                    $_SESSION["selection"][$i] = 0;
             }
-            echo "</table>";
-            echo "</div>";
         }
-        
-        
-        
-        function printSessionArray($items)
+        else if(isset($_POST['price']))
         {
-            if(isset($items))
+            for($i = 0; $i < 4; $i++)
             {
-                foreach($items as $item)
-                {
-                    echo $item . ", ";
-                }
+                if($i == 1)
+                    $_SESSION["selection"][$i] = $_POST['price'];
+                else 
+                    $_SESSION["selection"][$i] = 0;
             }
-            else {
-                echo "\n\nIt's not set.\n\n";
+        }
+        else if(isset($_POST['brand']))
+        {
+            for($i = 0; $i < 4; $i++)
+            {
+                if($i == 2)
+                    $_SESSION["selection"][$i] = $_POST['brand'];
+                else 
+                    $_SESSION["selection"][$i] = 0;
+            }
+        }
+        else if(isset($_POST['category']))
+        {
+            for($i = 0; $i < 4; $i++)
+            {
+                if($i == 3)
+                    $_SESSION["selection"][$i] = $_POST['category'];
+                else 
+                    $_SESSION["selection"][$i] = 0;
             }
         }
         
-        createTable($testing);
+        if($_SESSION["selection"][0] != 0)
+        {
+            if($_SESSION["selection"][0] == 1)
+            {
+                showAllNameAsc();
+            }
+            else if($_SESSION["selection"][0] == 2)
+            {
+                showAllNameDesc();
+            }
+        }
+        if($_SESSION["selection"][1] != 0)
+        {
+            if($_SESSION["selection"][1] == 1)
+            {
+                showAllPriceAsc();
+            }
+            else if($_SESSION["selection"][1] == 2)
+            {
+                showAllPriceDesc();
+            }
+        }
+        if($_SESSION["selection"][2] != 0)
+        {
+            if($_SESSION["selection"][2] == 1)
+            {
+                showPepperBridgeFarm();
+            }
+            else if($_SESSION["selection"][2] == 2)
+            {
+                showCocaColaCompany();
+            }
+            else if($_SESSION["selection"][2] == 4)
+            {
+                Kraft();
+            }
+            else if($_SESSION["selection"][2] == 3)
+            {
+                TheFruitCompany();
+            }
+            else if($_SESSION["selection"][2] == 5)
+            {
+                TheCandyCompany();
+            }
+        }
+        if($_SESSION["selection"][3] != 0)
+        {
+            if($_SESSION["selection"][3] == 1)
+            {
+                Beverage();
+            }
+            else if($_SESSION["selection"][3] == 2)
+            {
+                Candy();
+            }
+            else if($_SESSION["selection"][3] == 3)
+            {
+                Fruit();
+            }
+            else if($_SESSION["selection"][3] == 4)
+            {
+                DinnerFood();
+            }
+        }
         
-        printSessionArray($_SESSION["numbers"]);
         
-        $record["productID"]++;
         
         ?>
 
-    <form action = "index.php" method = "post">
-        <select name = "holdThese">
-            <option value = 1>1</option>
-            <option value = 2>2</option>
-            <option value = 3>3</option>
-            <option value = 4>4</option>
-            <option value = 5>5</option>
-        </select>
-        <input type = "submit" name = "Submit">
-        <input type = "submit" value = "clear" name = "Clear">
-    </form>
+    <div>
+        Sort by:
+        </br>
+        <div>
+            Name:
+            <form action = 'index.php' method = 'post'>
+                <select name = 'name'>
+                    <option value = 0></option>
+                    <option value = 1>Ascending</option>
+                    <option value = 2>Descending</option>
+                </select>
+                <input type = "submit" name = "Submit">
+                <input type = "submit" value = "clear" name = "Clear">
+            </form>
+                
+                </br>
+        </div>
+        <div>
+            Price:
+            <form action = 'index.php' method = 'post'>
+                <select name = 'price'>
+                    <option value = 0></option>
+                    <option value = 1>Ascending</option>
+                    <option value = 2>Descending</option>
+                </select>
+                <input type = "submit" name = "Submit">
+                <input type = "submit" value = "clear" name = "Clear">
+            </form>
+                </br>
+        </div>
+        <div>
+            Brand:
+            <form action = 'index.php' method = 'post'>
+                <select name = 'brand'>
+                    <option value = 0></option>
+                    <option value = 1>Pepper Bridge Farms</option>
+                    <option value = 2>Coca Cola</option>
+                    <option value = 3>Fruit Company</option>
+                    <option value = 4>Kraft</option>
+                    <option value = 5>Candy Company</option>
+                </select>
+                <input type = "submit" name = "Submit">
+                <input type = "submit" value = "clear" name = "Clear">
+            </form>
+                </br>
+        </div>
+        <div>
+            Only show:
+            <form action = 'index.php' method = 'post'>
+                <select name = 'category'>
+                    <option value = 0></option>
+                    <option value = 1>Beverage</option>
+                    <option value = 2>Candy</option>
+                    <option value = 3>Fruit</option>
+                    <option value = 4>Dinner Food</option>
+                </select>
+                <input type = "submit" name = "Submit">
+                <input type = "submit" value = "clear" name = "Clear">
+            </form>
+                </br>
+        </div>
+    </div>
     
+    
+    </br>
+    </br>
+    </br>
     <form action = "showCart.php" method = "post">
-        <input type = "submit" name = "goToCart">
+        <input type = "submit" name = "goToCart" value = "Checkout">
     </form>
 
-    <form action = "index.php" method = "post">
-            <input type='hidden' name='productID' value=<?php $record["productID"] ?>/>
-            <input type = "submit" name = "Submit">
-        </form>
 
     </body>
 </html>
